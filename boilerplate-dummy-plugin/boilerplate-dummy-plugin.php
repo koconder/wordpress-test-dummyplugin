@@ -8,20 +8,20 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              http://example.com
+ * @link              https://github.com/koconder/wordpress-test-dummyplugin
  * @since             1.0.0
- * @package           Plugin_Name
+ * @package           Boilerplate_Dummy_Plugin
  *
  * @wordpress-plugin
- * Plugin Name:       WordPress Plugin Boilerplate
- * Plugin URI:        http://example.com/plugin-name-uri/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Plugin Name:       Boilerplate Dummy Plugin
+ * Plugin URI:        https://github.com/koconder/wordpress-test-dummyplugin
+ * Description:       Boilerplate Dummy plugin used for Wordpress Testing.
  * Version:           1.0.0
- * Author:            Your Name or Your Company
- * Author URI:        http://example.com/
+ * Author:            Vincent Koc
+ * Author URI:        https://github.com/koconder
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       plugin-name
+ * Text Domain:       boilerplate-dummy-plugin
  * Domain Path:       /languages
  */
 
