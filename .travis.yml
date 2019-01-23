@@ -1,0 +1,118 @@
+# Travis CI Configuration file
+# @link https://travis-ci.org/
+language: php
+dist: trusty
+sudo: false
+
+notifications:
+  on_success: never
+  on_failure: change
+  email: false
+
+cache:
+  bundler: true
+  apt: true
+  directories:
+    # Cache directory for older Composer versions.
+    - $HOME/.composer/cache/files
+    # Cache directory for more recent Composer versions.
+    - $HOME/.cache/composer/files
+
+env:
+  global:
+    - PATH=~/.composer/vendor/bin:vendor/bin:$PATH
+    - WP_PROJECT_TYPE=plugin
+    - WP_VERSION=latest
+    - WP_MULTISITE=0
+    - WP_TEST_URL=http://localhost:12000
+    - WP_TEST_USER=test
+    - WP_TEST_USER_PASS=test
+
+jobs:
+  fast_finish: true
+  include:
+    - php: 7.3
+      env: WP_VERSION=5.0 WP_MULTISITE=1 PHPLINT=1 PHPCS=1
+
+    - php: 7.3
+      env: WP_VERSION=5.0 WP_MULTISITE=1 COVERAGE=1
+
+    - php: 7.2
+      env: WP_VERSION=5.0
+
+    - php: 7.1
+      env: WP_VERSION=5.0
+
+    - php: 7.0
+      env: WP_VERSION=5.0
+
+    - php: 5.6
+      env: WP_VERSION=5.0
+
+    - php: 5.5
+      env: WP_VERSION=5.0
+
+    - php: 5.4
+      env: WP_VERSION=5.0
+
+    - php: 5.3
+      # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
+      dist: precise
+      env: WP_VERSION=5.0
+
+    - php: 5.2
+      # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
+      dist: precise
+      env: WP_VERSION=4.8 WP_MULTISITE=1 PHPLINT=1
+
+    - php: nightly
+      env: WP_VERSION=latest
+
+  allow_failures:
+    - php: nightly
+
+git:
+  depth: 1
+
+before_script:
+  # Increase PHP Memory
+  - echo "memory_limit=2048M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  
+  # Speed up build time by disabling Xdebug.
+  # https://johnblackbourn.com/reducing-travis-ci-build-times-for-wordpress-projects/
+  # https://twitter.com/kelunik/status/954242454676475904
+  - if [ "$TRAVIS_PHP_VERSION" != "5.6" ]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
+
+  # Fix PHPUnit
+  - PHPUNIT_BIN="phpunit"
+  - if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" || $TRAVIS_PHP_VERSION == "nightly" ]]; then PHPUNIT_BIN="vendor/bin/phpunit"; fi
+  - if [[ $TRAVIS_PHP_VERSION == "5.2" || $TRAVIS_PHP_VERSION == "5.3" ]]; then phpenv local 5.6.13; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" || $TRAVIS_PHP_VERSION == "nightly" ]]; then composer require phpunit/phpunit ^5.7 --ignore-platform-reqs; fi
+
+  # Install composer packages before trying to activate themes or plugins
+  - composer self-update
+  - composer install
+  - phpenv rehash
+
+  # Install Wordpress testing suite and run wordpress
+  - git clone https://github.com/koconder/wordpress-test-template wp-tests
+  - bash wp-tests/bin/install-wp-tests.sh test root '' localhost $WP_VERSION
+
+script:
+  # Run rspec tests
+  #- cd wp-tests/spec && bundle exec rspec baseline.rb
+  # Syntax check all php files and fail for any error text in STDERR
+  - '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
+
+  # Run the unit tests.
+  - if [[ "$PHPCS" == "1" ]]; then phpunit -c phpunit.xml --coverage-clover=coverage.xml; else phpunit -c phpunit.xml; fi
+
+  # Validate the composer.json file.
+  # @link https://getcomposer.org/doc/03-cli.md#validate
+  - if [[ "$LINT" == "1" ]]; then composer validate --no-check-all --strict; fi
+
+
+after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - if [[ "$PHPCS" == "1" ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
+  - bash <(curl -s https://codecov.io/bash)
