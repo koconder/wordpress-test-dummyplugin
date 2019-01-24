@@ -1,0 +1,32 @@
+{
+    "name": "koconder/wordpress-test-dummyplugin",
+    "description": "Unit Testing and Travis CI plugin for Wordpress part of koconder/wordpress-test-template",
+    "keywords": [
+        "wordpress",
+        "plugin",
+        "travis-ci",
+        "travis",
+        "ci",
+        "unit test",
+        "testing",
+        "phpunit",
+        "phpcs",
+        "wpcli"
+    ],
+    "homepage": "https://github.com/koconder/wordpress-test-dummyplugin",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/koconder/wordpress-test-dummyplugin/graphs/contributors"
+        }
+    ],
+	"require": {
+		"php": ">=5.2"
+	},
+    "scripts": {
+        "install-codestandards": [
+            "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
+        ]
+    }
+}
