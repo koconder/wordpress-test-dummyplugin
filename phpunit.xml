@@ -28,6 +28,7 @@
 		<whitelist>
 			<directory>./</directory>
 			<exclude>
+				<directory suffix=".php">./wptesst</directory>
 				<directory suffix=".php">./vendor</directory>
 				<directory suffix=".php">./spec</directory>
 				<directory suffix=".php">./docker</directory>
