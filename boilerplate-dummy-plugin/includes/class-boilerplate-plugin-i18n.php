@@ -9,8 +9,8 @@
  * @link  http://example.com
  * @since 1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    boilerplate_plugin
+ * @subpackage boilerplate_plugin/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    boilerplate_plugin
+ * @subpackage boilerplate_plugin/includes
  * @author     Your Name <email@example.com>
  */
-class Plugin_Name_i18n
+class boilerplate_plugin_i18n
 {
 
 
@@ -37,7 +37,7 @@ class Plugin_Name_i18n
     {
 
         load_plugin_textdomain(
-            'plugin-name',
+            'boilerplate-plugin',
             false,
             dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
         );

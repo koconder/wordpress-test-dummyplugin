@@ -29,42 +29,47 @@
 if (! defined('WPINC') ) {
     die;
 }
+// Used for CI Testing, disable duplicate loads in order to pass this plugins test
+if (function_exists('activate_boilerplate_plugin') ) {
+    die;
+}
+
 
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('PLUGIN_NAME_VERSION', '1.0.0');
+define('boilerplate_plugin_VERSION', '1.0.0');
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-plugin-name-activator.php
+ * This action is documented in includes/class-boilerplate-plugin-activator.php
  */
-function activate_plugin_name() 
+function activate_boilerplate_plugin() 
 {
-    include_once plugin_dir_path(__FILE__) . 'includes/class-plugin-name-activator.php';
-    Plugin_Name_Activator::activate();
+    include_once plugin_dir_path(__FILE__) . 'includes/class-boilerplate-plugin-activator.php';
+    boilerplate_plugin_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-plugin-name-deactivator.php
+ * This action is documented in includes/class-boilerplate-plugin-deactivator.php
  */
-function deactivate_plugin_name() 
+function deactivate_boilerplate_plugin() 
 {
-    include_once plugin_dir_path(__FILE__) . 'includes/class-plugin-name-deactivator.php';
-    Plugin_Name_Deactivator::deactivate();
+    include_once plugin_dir_path(__FILE__) . 'includes/class-boilerplate-plugin-deactivator.php';
+    boilerplate_plugin_Deactivator::deactivate();
 }
 
-register_activation_hook(__FILE__, 'activate_plugin_name');
-register_deactivation_hook(__FILE__, 'deactivate_plugin_name');
+register_activation_hook(__FILE__, 'activate_boilerplate_plugin');
+register_deactivation_hook(__FILE__, 'deactivate_boilerplate_plugin');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__) . 'includes/class-plugin-name.php';
+require plugin_dir_path(__FILE__) . 'includes/class-boilerplate-plugin.php';
 
 /**
  * Begins execution of the plugin.
@@ -75,11 +80,11 @@ require plugin_dir_path(__FILE__) . 'includes/class-plugin-name.php';
  *
  * @since 1.0.0
  */
-function run_plugin_name() 
+function run_boilerplate_plugin() 
 {
 
-    $plugin = new Plugin_Name();
+    $plugin = new boilerplate_plugin();
     $plugin->run();
 
 }
-run_plugin_name();
+run_boilerplate_plugin();

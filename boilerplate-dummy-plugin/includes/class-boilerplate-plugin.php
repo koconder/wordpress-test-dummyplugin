@@ -9,8 +9,8 @@
  * @link  http://example.com
  * @since 1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    boilerplate_plugin
+ * @subpackage boilerplate_plugin/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    boilerplate_plugin
+ * @subpackage boilerplate_plugin/includes
  * @author     Your Name <email@example.com>
  */
-class Plugin_Name
+class boilerplate_plugin
 {
 
     /**
@@ -36,7 +36,7 @@ class Plugin_Name
      *
      * @since  1.0.0
      * @access protected
-     * @var    Plugin_Name_Loader    $loader    Maintains and registers all hooks for the plugin.
+     * @var    boilerplate_plugin_Loader    $loader    Maintains and registers all hooks for the plugin.
      */
     protected $loader;
 
@@ -45,9 +45,9 @@ class Plugin_Name
      *
      * @since  1.0.0
      * @access protected
-     * @var    string    $plugin_name    The string used to uniquely identify this plugin.
+     * @var    string    $boilerplate_plugin    The string used to uniquely identify this plugin.
      */
-    protected $plugin_name;
+    protected $boilerplate_plugin;
 
     /**
      * The current version of the plugin.
@@ -69,12 +69,12 @@ class Plugin_Name
      */
     public function __construct() 
     {
-        if (defined('PLUGIN_NAME_VERSION') ) {
-            $this->version = PLUGIN_NAME_VERSION;
+        if (defined('boilerplate_plugin_VERSION') ) {
+            $this->version = boilerplate_plugin_VERSION;
         } else {
             $this->version = '1.0.0';
         }
-        $this->plugin_name = 'plugin-name';
+        $this->boilerplate_plugin = 'boilerplate-plugin';
 
         $this->load_dependencies();
         $this->set_locale();
@@ -88,10 +88,10 @@ class Plugin_Name
      *
      * Include the following files that make up the plugin:
      *
-     * - Plugin_Name_Loader. Orchestrates the hooks of the plugin.
-     * - Plugin_Name_i18n. Defines internationalization functionality.
-     * - Plugin_Name_Admin. Defines all hooks for the admin area.
-     * - Plugin_Name_Public. Defines all hooks for the public side of the site.
+     * - boilerplate_plugin_Loader. Orchestrates the hooks of the plugin.
+     * - boilerplate_plugin_i18n. Defines internationalization functionality.
+     * - boilerplate_plugin_Admin. Defines all hooks for the admin area.
+     * - boilerplate_plugin_Public. Defines all hooks for the public side of the site.
      *
      * Create an instance of the loader which will be used to register the hooks
      * with WordPress.
@@ -106,33 +106,33 @@ class Plugin_Name
          * The class responsible for orchestrating the actions and filters of the
          * core plugin.
          */
-        include_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-plugin-name-loader.php';
+        include_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-boilerplate-plugin-loader.php';
 
         /**
          * The class responsible for defining internationalization functionality
          * of the plugin.
          */
-        include_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-plugin-name-i18n.php';
+        include_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-boilerplate-plugin-i18n.php';
 
         /**
          * The class responsible for defining all actions that occur in the admin area.
          */
-        include_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-plugin-name-admin.php';
+        include_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-boilerplate-plugin-admin.php';
 
         /**
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
          */
-        include_once plugin_dir_path(dirname(__FILE__)) . 'public/class-plugin-name-public.php';
+        include_once plugin_dir_path(dirname(__FILE__)) . 'public/class-boilerplate-plugin-public.php';
 
-        $this->loader = new Plugin_Name_Loader();
+        $this->loader = new boilerplate_plugin_Loader();
 
     }
 
     /**
      * Define the locale for this plugin for internationalization.
      *
-     * Uses the Plugin_Name_i18n class in order to set the domain and to register the hook
+     * Uses the boilerplate_plugin_i18n class in order to set the domain and to register the hook
      * with WordPress.
      *
      * @since  1.0.0
@@ -141,7 +141,7 @@ class Plugin_Name
     private function set_locale() 
     {
 
-        $plugin_i18n = new Plugin_Name_i18n();
+        $plugin_i18n = new boilerplate_plugin_i18n();
 
         $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 
@@ -157,7 +157,7 @@ class Plugin_Name
     private function define_admin_hooks() 
     {
 
-        $plugin_admin = new Plugin_Name_Admin($this->get_plugin_name(), $this->get_version());
+        $plugin_admin = new boilerplate_plugin_Admin($this->get_boilerplate_plugin(), $this->get_version());
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -174,7 +174,7 @@ class Plugin_Name
     private function define_public_hooks() 
     {
 
-        $plugin_public = new Plugin_Name_Public($this->get_plugin_name(), $this->get_version());
+        $plugin_public = new boilerplate_plugin_Public($this->get_boilerplate_plugin(), $this->get_version());
 
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
@@ -198,16 +198,16 @@ class Plugin_Name
      * @since  1.0.0
      * @return string    The name of the plugin.
      */
-    public function get_plugin_name() 
+    public function get_boilerplate_plugin() 
     {
-        return $this->plugin_name;
+        return $this->boilerplate_plugin;
     }
 
     /**
      * The reference to the class that orchestrates the hooks with the plugin.
      *
      * @since  1.0.0
-     * @return Plugin_Name_Loader    Orchestrates the hooks of the plugin.
+     * @return boilerplate_plugin_Loader    Orchestrates the hooks of the plugin.
      */
     public function get_loader() 
     {
