@@ -8,14 +8,16 @@ build:
         analysis:
             dependencies:
                 before:
-                    - composer require johnpbloch/wordpress
-                    - composer require dealerdirect/phpcodesniffer-composer-installer
-                    - composer require squizlabs/php_codesniffer
-                    - composer require wp-coding-standards/wpcs
-                    - composer require phpcompatibility/php-compatibility
-                    - composer require phpcompatibility/phpcompatibility-paragonie
-                    - composer require phpcompatibility/phpcompatibility
-                    - composer require phpunit/phpunit:^6.1.0
+                    - composer require --dev johnpbloch/wordpress
+                    - composer require --dev dealerdirect/phpcodesniffer-composer-installer
+                    - composer require --dev squizlabs/php_codesniffer
+                    - composer require --dev wp-coding-standards/wpcs
+                    - composer require --dev phpcompatibility/php-compatibility
+                    - composer require --dev phpcompatibility/phpcompatibility-paragonie
+                    - composer require --dev phpcompatibility/phpcompatibility
+                    - composer require --dev phpunit/phpunit:^6.1.0
+                    - composer install --prefer-dist --no-suggest
+                    - composer run-script install-codestandards
             tests:
                 override:
                 -
