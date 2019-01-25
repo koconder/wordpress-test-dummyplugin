@@ -14,7 +14,7 @@ build:
                     - composer require --dev wp-coding-standards/wpcs
                     - composer require --dev phpcompatibility/php-compatibility
                     - composer require --dev phpcompatibility/phpcompatibility-paragonie
-                    - composer require --dev phpcompatibility/phpcompatibility
+                    - composer require --dev phpcompatibility/phpcompatibility-wp
                     - composer require --dev phpunit/phpunit:^6.1.0
                     - composer install --prefer-dist --no-suggest
                     - composer run-script install-codestandards
