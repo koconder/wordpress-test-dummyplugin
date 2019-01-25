@@ -4,31 +4,32 @@ tools:
             standard: WordPress
     sensiolabs_security_checker: true
 build:
-    nodes:
-        analysis:
-            dependencies:
-                before:
-                    - composer require --dev johnpbloch/wordpress
-                    - composer require --dev dealerdirect/phpcodesniffer-composer-installer
-                    - composer require --dev squizlabs/php_codesniffer
-                    - composer require --dev wp-coding-standards/wpcs
-                    - composer require --dev phpcompatibility/php-compatibility
-                    - composer require --dev phpcompatibility/phpcompatibility-paragonie
-                    - composer require --dev phpcompatibility/phpcompatibility-wp
-                    - composer require --dev phpunit/phpunit
-                    - composer install --prefer-dist --no-suggest
-                    - composer run-script install-codestandards
-            tests:
-                override:
-                -
-                    command: phpcs-run
-                    use_website_config: true
-                - php-scrutinizer-run
-                -
-                    command: 'php ./vendor/bin/phpunit --configuration phpunit.xml --testsuite scrutinizer --coverage-clover=clover.xml'
-                    coverage:
-                        file: clover.xml
-                        format: php-clover
+    environment:
+        php:
+            version: 7.2
+    dependencies:
+        before:
+            - composer require --dev johnpbloch/wordpress
+            - composer require --dev dealerdirect/phpcodesniffer-composer-installer
+            - composer require --dev squizlabs/php_codesniffer
+            - composer require --dev wp-coding-standards/wpcs
+            - composer require --dev phpcompatibility/php-compatibility
+            - composer require --dev phpcompatibility/phpcompatibility-paragonie
+            - composer require --dev phpcompatibility/phpcompatibility-wp
+            - composer require --dev phpunit/phpunit
+            - composer install --prefer-dist --no-suggest
+            - composer run-script install-codestandards
+    tests:
+        override:
+        -
+            command: phpcs-run
+            use_website_config: true
+        - php-scrutinizer-run
+        -
+            command: 'php ./vendor/bin/phpunit --configuration phpunit.xml --testsuite scrutinizer --coverage-clover=clover.xml'
+            coverage:
+                file: clover.xml
+                format: php-clover
 checks:
     php:
         avoid_closing_tag: false
