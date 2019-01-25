@@ -25,15 +25,12 @@
  * Domain Path:       /languages
  */
 
-// If this file is called directly, abort.
+/**
+ * If this file is called directly, abort.
+ */
 if (! defined('WPINC') ) {
     die;
 }
-// Used for CI Testing, disable duplicate loads in order to pass this plugins test
-if (function_exists('activate_boilerplate_plugin') ) {
-    die;
-}
-
 
 /**
  * Currently plugin version.
