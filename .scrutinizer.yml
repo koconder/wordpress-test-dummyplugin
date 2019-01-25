@@ -26,9 +26,9 @@ build:
             use_website_config: true
         - php-scrutinizer-run
         -
-            command: 'php ./vendor/bin/phpunit --configuration phpunit.xml --testsuite scrutinizer --coverage-clover=clover.xml'
+            command: 'php ./vendor/bin/phpunit --configuration phpunit.xml --testsuite scrutinizer --coverage-clover=/home/scrutinizer/build/clover.xml'
             coverage:
-                file: clover.xml
+                file: /home/scrutinizer/build/clover.xml
                 format: php-clover
 checks:
     php:
