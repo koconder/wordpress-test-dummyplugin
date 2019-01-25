@@ -24,6 +24,11 @@ build:
                     command: phpcs-run
                     use_website_config: true
                 - php-scrutinizer-run
+                -
+                    command: 'php ./vendor/bin/phpunit --configuration phpunit.xml --testsuite scrutinizer --coverage-clover=clover.xml'
+                    coverage:
+                        file: clover.xml
+                        format: php-clover
 checks:
     php:
         avoid_closing_tag: false
